@@ -1,7 +1,7 @@
 require 'yaml'
 require_relative 'config_loader.rb'
 
-ident = CONFIG['bot']['ident']
+ident = Regexp.quote CONFIG['bot']['ident']
 
 $coin_regex = /#{ident}f(?:lip)?( \d+( t)?)?/
 $single_roll_regex = /#{ident}((?:d\d+[ ,]*)+)/
