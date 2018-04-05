@@ -28,7 +28,7 @@ $music_start_regex = /#{ident}m(?:usic)? p(?:lay)? (.+)/u
 $music_summon_regex = /#{ident}m(?:usic)? s(?:ummon)?/u
 $music_disconnect_regex = /#{ident}m(?:usic)? d(?:isconnect)?/u
 
-$linker_add_regex = /#{ident}l(?:ink)? a(?:dd) ((?:.| )+)\|((?:.| )+)/u
+$linker_add_regex = /#{ident}l(?:ink)? a(?:dd)? ((?:.| )+)\|((?:.| )+)/u
 $linker_remove_regex = /#{ident}l(?:ink)? r(?:emove) ((?:.| )+)/u
 
 $help_regex = /#{ident}h(?:elp)?( \w+)?/u
