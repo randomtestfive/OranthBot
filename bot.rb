@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'discordrb'
 require_relative 'config_loader.rb'
 require_relative 'dice.rb'
@@ -8,6 +10,7 @@ require_relative 'help.rb'
 require_relative 'tournament_commands.rb'
 require_relative 'poll.rb'
 require_relative 'youtube_commands.rb'
+require_relative 'linker_commands.rb'
 
 bot = Discordrb::Bot.new token: CONFIG['discord']['token'], client_id: CONFIG['discord']['client_id']
 
@@ -34,6 +37,10 @@ bot.message(with_text: $music_start_regex) { |event| $music_start_command.call(e
 bot.message(with_text: $music_summon_regex) { |event| $music_summon_command.call(event,bot) }
 bot.message(with_text: $music_disconnect_regex) { |event| event.voice.destroy }
 
+bot.message(with_text: $linker_add_regex) { |event| $linker_add_command.call(event) }
+
 bot.message(with_text: $help_regex) { |event| $help_command.call(event) }
+
+bot.message { |event| $linker_find_match.call(event) }
 
 bot.run
