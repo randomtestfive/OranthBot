@@ -27,3 +27,29 @@ def multi_roll(d, a, t)
     "You rolled: #{s2}\ntotal: #{t}"
   end
 end
+
+def resolve_single(s)
+  i = s.index('d')
+  if i == nil
+    return [s.to_i]
+  elsif i == 0
+    return [roll_die(s[1..-1].to_i)]
+  else
+    o = []
+    s[0..(i-1)].to_i.times do |frea|
+      o.push roll_die(s[(i+1)..-1].to_i)
+    end
+    return o
+  end
+end
+
+def super_roll(s)
+  dice = s.split '+'
+  dice.map { |die| die.tr(' ', '') }
+  sum = 0
+  all = []
+  dice.each do |die|
+    all.concat resolve_single die
+  end
+  [all, all.reduce(:+)]
+end

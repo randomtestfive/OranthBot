@@ -26,3 +26,23 @@ $linker_find_match = Proc.new do |event|
   # event.respond $links.key? event.message.to_s
   event.respond $links[event.content] if $links.key? event.content
 end
+
+$linker_list_command = Proc.new do |event|
+  s = '```'
+  $links.each do |k,v|
+    s += "#{k} => #{v}\n"
+  end
+  s += '```'
+  event.respond s
+end
+
+$linker_remove_command = Proc.new do |event|
+  m = $linker_remove_regex.match(event.content)
+  if $links.key? m[1]
+    $links.delete m[1]
+    event.respond "Deleted link"
+  else
+    event.respond "Link does not exist"
+  end
+  save_links
+end

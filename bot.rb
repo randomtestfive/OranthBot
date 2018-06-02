@@ -19,6 +19,7 @@ ident = CONFIG['bot']['ident']
 bot.message(with_text: $single_roll_regex) { |event| $single_roll_command.call(event) }
 bot.message(with_text: $multi_roll_regex) { |event| $multi_roll_command.call(event) }
 bot.message(with_text: $coin_regex) { |event| $coin_command.call(event) }
+bot.message(with_text: $roll_regex) { |event| $roll_command.call(event) }
 
 bot.message(with_text: $tournament_create_regex) { |event| $tournament_create_command.call(event) }
 bot.message(with_text: $tournament_join_regex) { |event| $tournament_join_command.call(event) }
@@ -38,6 +39,8 @@ bot.message(with_text: $music_summon_regex) { |event| $music_summon_command.call
 bot.message(with_text: $music_disconnect_regex) { |event| event.voice.destroy }
 
 bot.message(with_text: $linker_add_regex) { |event| $linker_add_command.call(event) }
+bot.message(with_text: $linker_remove_regex) { |event| $linker_remove_command.call(event) }
+bot.message(with_text: $linker_list_regex) { |event| $linker_list_command.call(event) }
 
 bot.message(with_text: $help_regex) { |event| $help_command.call(event) }
 

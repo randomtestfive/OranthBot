@@ -33,3 +33,13 @@ $coin_command = Proc.new do |event|
     end
   end
 end
+
+$roll_command = Proc.new do |event|
+  o = super_roll($roll_regex.match(event.content)[1])
+  if o[0].length > 1
+    s = o[0].to_s.gsub('[','').gsub(']','').gsub(',', ' + ')
+    event.respond "You rolled: #{s} = #{o[1]}"
+  else
+    event.respond "You rolled: #{o[1]}"
+  end
+end

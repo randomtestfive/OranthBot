@@ -12,7 +12,8 @@ $help_command = Proc.new do |event|
     `#{ident}d#`: Roll a d#.
     `#{ident}f(lip)`: Flip a coin.
     `#{ident}t(ournamnet)`: Tournament command.
-    `#{ident}p(oll)`: Poll command."
+    `#{ident}p(oll)`: Poll command.
+    `#{ident}l(ink)`: Link command."
   elsif / t(ournament)?/.match(m[1]) != nil
     event.respond "Tournament commands:
     `#{ident}t(ournament) c(reate) (tournament)`: Create a tournament. [Admin]
@@ -33,6 +34,11 @@ $help_command = Proc.new do |event|
     `#{ident}p v(ote) (option)`: Vote for an option in a poll.
     `#{ident}p i(nfo)`: Show information about the current poll.
     `#{ident}p r(esults)`: Display the current results."
+  elsif / l(ink)?/.match(m[1]) != nil
+    event.respond "Link commands:
+    `#{ident}l(ink) a(dd) (key)|(value)`: Create a link.
+    `#{ident}l r(emove) (key)`: Remove a link.
+    `#{ident}l l(ist)`: List all links."
   else
     event.respond "Unknown subcommand."
   end
