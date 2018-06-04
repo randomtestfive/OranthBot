@@ -7,7 +7,7 @@ ident = Regexp.quote CONFIG['bot']['ident']
 $coin_regex = Regexp.new("#{ident}f(?:lip)?( \\d+( t)?)?".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 $single_roll_regex = Regexp.new("#{ident}((?:d\\d+[ ,]*)+)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 $multi_roll_regex = Regexp.new("#{ident}(d\\d+) ?[x\\*] ?(\\d+)( t)?".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
-$roll_regex = Regexp.new("#{ident}r ((?:[0-9]*(?:d[0-9]+)*)(?: *\\+ *[0-9]*(?:d[0-9]+)*)*)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
+$roll_regex = Regexp.new("#{ident}r(?:oll)? ((?:[0-9]*(?:d[0-9]+)*)(?: *\\+ *[0-9]*(?:d[0-9]+)*)*)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 
 $tournament_create_regex = Regexp.new("#{ident}t(?:ournamnet)? c(?:reate)? (\\w+)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 $tournament_join_regex = Regexp.new("#{ident}t(?:ournament)? j(?:oin)? (\\w+)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
