@@ -33,4 +33,7 @@ $linker_add_regex = Regexp.new("#{ident}l(?:ink)? a(?:dd)? ((?:.| )+)\\|((?:.| )
 $linker_remove_regex = Regexp.new("#{ident}l(?:ink)? r(?:emove)? ((?:.| )+)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 $linker_list_regex = Regexp.new("#{ident}l(?:ink)? l(?:ist)?".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
 
+$meme_create_regex = Regexp.new("#{ident}m(?:eme)? ([\\w]+) (.+)".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
+$meme_list_regex = Regexp.new("#{ident}m(?:eme)? l(?:ist)?".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
+
 $help_regex = Regexp.new("#{ident}h(?:elp)?( \\w+)?".force_encoding("UTF-8"), Regexp::FIXEDENCODING)
