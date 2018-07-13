@@ -1,9 +1,30 @@
 require_relative 'regexes.rb'
 require_relative 'meme.rb'
 
-formats = [ "whowouldwin", "youvstheguy", "drake", "expandingbrain" ]
+formats = [ "whowouldwin", "youvstheguy", "drake", "expandingbrain", "carsalesman" ]
 
 url_regex = /https:\/\/.+\.(png|jpg)/
+
+def find_user(id, mentions)
+  o = nil
+  mentions.each do |mention|
+    if mention.id.to_s == id.to_s
+      o = mention
+    end
+  end
+  o
+end
+
+def transform_args(args, mentions)
+  args.map! do |arg|
+    o = arg
+    puts arg
+    /<\@\!?(\d+)>/.match(arg)do |m|
+      o = find_user(m[1], mentions).avatar_url
+    end
+    o
+  end
+end
 
 $meme_create_command = Proc.new do |event|
   m = $meme_create_regex.match(event.content)
@@ -11,6 +32,8 @@ $meme_create_command = Proc.new do |event|
     message = event.respond "Attempting to create meme..."
     args = m[2].split("|")
     args.map!(&:strip)
+    transform_args(args, event.message.mentions)
+    # event.respond args.to_s
     case m[1]
     when "whowouldwin"
       if args.length == 4 && (url_regex.match(args[1]) != nil) && (url_regex.match(args[3]) != nil)
@@ -44,6 +67,10 @@ $meme_create_command = Proc.new do |event|
       else
         message.edit "Couldn't make meme: wrong arguments"
       end
+    when "carsalesman"
+      Meme.car_salesman args[0], args[1], args[2]
+      message.edit "Created meme"
+      event.channel.send_file(File.open("memes/tmp-0.png"))
     end
   else
     event.respond "Invalid format"
