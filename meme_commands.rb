@@ -1,3 +1,5 @@
+require 'yaml'
+
 require_relative 'regexes.rb'
 require_relative 'meme.rb'
 
@@ -15,12 +17,15 @@ def find_user(id, mentions)
   o
 end
 
-def transform_args(args, mentions)
+def transform_args(args, mentions, channel)
   args.map! do |arg|
     o = arg
-    puts arg
-    /<\@\!?(\d+)>/.match(arg)do |m|
+    /<\@\!?(\d+)>/.match(arg) do |m|
       o = find_user(m[1], mentions).avatar_url
+    end
+    /^+/.match(arg) do |m|
+      messages = channel.history arg.length + 2
+      o = messages[-1].content
     end
     o
   end
@@ -32,7 +37,7 @@ $meme_create_command = Proc.new do |event|
     message = event.respond "Attempting to create meme..."
     args = m[2].split("|")
     args.map!(&:strip)
-    transform_args(args, event.message.mentions)
+    transform_args(args, event.message.mentions, event.channel)
     # event.respond args.to_s
     case m[1]
     when "whowouldwin"
