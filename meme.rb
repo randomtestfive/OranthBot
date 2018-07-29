@@ -89,6 +89,14 @@ module Meme
     Meme.place_from_center "memes/text-#{out_id}.png", id.to_s, x, y, out_id
   end
 
+  def self.flop(in_id, out_id)
+    MiniMagick::Tool::Convert.new do |c|
+      c << in_id
+      c.flop
+      c << out_id
+    end
+  end
+
   def self.get_int(input)
     return ("%+d" % input)
   end
@@ -162,6 +170,34 @@ module Meme
       Meme.save_img_url image2, 1
       puts 'drawing image 2 on id 0 as id 0'
       Meme.place_at_resize "memes/tmp-1.png", "memes/tmp-0.png", 538, 268, 120, 120, 0
+    end
+  end
+
+  def self.boo(label1, image1)
+    puts 'drawing label 1 on boo as id 0'
+    MiniMagick::Tool::Convert.new do |c|
+      c.background 'none'
+      c.font 'Courier'
+      c.pointsize "20"
+      c.size "140x100"
+      c.gravity 'SouthWest'
+      c << "caption:#{label1}"
+      c << "memes/text-0.png"
+    end
+    Meme.place_at "memes/text-0.png", "memes/boo.png", 270, 280, 0
+    if image1 != nil
+      puts 'saving image 1 as id 1'
+      Meme.save_img_url image1, 1
+      puts 'drawing image 1 on id 0 as id 0'
+      Meme.place_at_resize "memes/tmp-1.png", "memes/tmp-0.png", 193, 156, 40, 40, 0
+      puts 'drawing image 1 on id 0 as id 0'
+      Meme.place_at_resize "memes/tmp-1.png", "memes/tmp-0.png", 449, 155, 40, 40, 0
+      puts 'drawing image 1 on id 0 as id 0'
+      Meme.place_at_resize "memes/tmp-1.png", "memes/tmp-0.png", 191, 413, 40, 40, 0
+      puts 'flopping id 1 as id 1'
+      Meme.flop 'memes/tmp-1.png', 'memes/tmp-1.png'
+      puts 'drawing image 1 on id 0 as id 0'
+      Meme.place_at_resize "memes/tmp-1.png", "memes/tmp-0.png", 448, 409, 40, 40, 0
     end
   end
 end

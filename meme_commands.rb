@@ -3,7 +3,7 @@ require 'yaml'
 require_relative 'regexes.rb'
 require_relative 'meme.rb'
 
-formats = [ "whowouldwin", "youvstheguy", "drake", "expandingbrain", "carsalesman" ]
+formats = [ "whowouldwin", "youvstheguy", "drake", "expandingbrain", "carsalesman", "boo" ]
 
 url_regex = /https:\/\/.+\.(png|jpg)/
 
@@ -22,8 +22,9 @@ def transform_args(args, mentions, channel)
     o = arg
     /<\@\!?(\d+)>/.match(arg) do |m|
       o = find_user(m[1], mentions).avatar_url
+      puts o
     end
-    /^+/.match(arg) do |m|
+    /\^+/.match(arg) do |m|
       messages = channel.history arg.length + 2
       o = messages[-1].content
     end
@@ -74,6 +75,10 @@ $meme_create_command = Proc.new do |event|
       end
     when "carsalesman"
       Meme.car_salesman args[0], args[1], args[2]
+      message.edit "Created meme"
+      event.channel.send_file(File.open("memes/tmp-0.png"))
+    when "boo"
+      Meme.boo args[0], args[1]
       message.edit "Created meme"
       event.channel.send_file(File.open("memes/tmp-0.png"))
     end
