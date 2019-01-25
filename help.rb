@@ -13,7 +13,8 @@ $help_command = Proc.new do |event|
     `#{ident}f(lip)`: Flip a coin.
     `#{ident}t(ournamnet)`: Tournament command.
     `#{ident}p(oll)`: Poll command.
-    `#{ident}l(ink)`: Link command."
+    `#{ident}l(ink)`: Link command.
+    `#{ident}latex`: create latex"
   elsif / t(ournament)?/.match(m[1]) != nil
     event.respond "Tournament commands:
     `#{ident}t(ournament) c(reate) (tournament)`: Create a tournament. [Admin]

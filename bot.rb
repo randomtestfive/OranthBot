@@ -12,6 +12,7 @@ require_relative 'poll.rb'
 require_relative 'youtube_commands.rb'
 require_relative 'linker_commands.rb'
 require_relative 'meme_commands.rb'
+require_relative 'latex_commands.rb'
 
 bot = Discordrb::Bot.new token: CONFIG['discord']['token'], client_id: CONFIG['discord']['client_id']
 
@@ -45,6 +46,8 @@ bot.message(with_text: $linker_list_regex) { |event| $linker_list_command.call(e
 
 bot.message(with_text: $meme_create_regex) { |event| $meme_create_command.call(event) }
 bot.message(with_text: $meme_list_regex) { |event| $meme_list_command.call(event) }
+
+bot.message(with_text: $latex_regex) { |event| $latex_command.call(event) }
 
 bot.message(with_text: $help_regex) { |event| $help_command.call(event) }
 
